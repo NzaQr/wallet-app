@@ -1,0 +1,159 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  margin: 40px 0;
+  text-align: center;
+  background-color: #f7f1f6;
+}
+
+.select-crypto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.select-crypto button {
+  background-color: transparent;
+  padding: 0.5rem 0 0.5rem 1rem;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  width: 70%;
+  height: 70%;
+  font-size: 20px;
+  padding: 1rem 1.5rem;
+  border-radius: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modal-cryptos {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 2rem auto;
+}
+
+.modal-cryptos input {
+  font-family: "Open Sans", sans-serif;
+  margin-bottom: 3rem;
+  padding: 0.5rem;
+  background-color: #ffffff;
+  border-radius: 15px;
+  border: 1px solid rgba(195, 197, 203, 0.5);
+  cursor: pointer;
+}
+
+.modal-cryptos input:hover {
+  background-color: #f7f8fa;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.dashboard-container {
+  text-align: left;
+  background-color: #ffffff;
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 2rem 0.5rem;
+  border-radius: 25px;
+}
+
+.wallet-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.arrow {
+  width: 1.5rem;
+  height: 2rem;
+}
+
+.dashboard-form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.dashboard-input {
+  background-color: #f7f8fa;
+  text-align: right;
+  margin: 1rem 0;
+  padding: 1rem;
+  font-size: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(195, 197, 203, 0.5);
+}
+
+.dashboard-input:hover {
+  border: 1px solid rgba(195, 197, 203);
+}
+
+.dashboard-button {
+  color: rgb(213, 0, 102);
+  background-color: rgb(253, 234, 241);
+  margin: 1rem 0;
+  padding: 1rem;
+  font-size: 20px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.dashboard-button:hover {
+  background-color: #fcdce8;
+  transform: perspective(1px) translateZ(0px);
+}
+
+div p {
+  margin: 0 10px;
+}
+
+@media (min-width: 800px) {
+  .dashboard-container,
+  .modal {
+    width: 50vw;
+  }
+
+  .dashboard-input {
+    width: 70%;
+  }
+
+  .dashboard-button {
+    margin-bottom: 3rem;
+  }
+
+  .select-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .select-crypto {
+    position: relative;
+  }
+}
+
+@media (min-width: 1200px) {
+  .dashboard-container,
+  .modal {
+    width: 25vw;
+  }
+}
