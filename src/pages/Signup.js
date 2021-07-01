@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import "./Form.css";
 
 const Signup = () => {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [failed, setFailed] = useState(false);
 
   const axios = require("axios");
@@ -29,25 +30,29 @@ const Signup = () => {
 
   return (
     <div>
-      <form onSubmit={register}>
+      <form className="account-form" onSubmit={register}>
+        <h1 className="account-title">Sign Up</h1>
+
         <input
+          className="account-input"
           type="text"
           placeholder="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          type="text"
+          className="account-input"
+          type="password"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" onClick={register}>
+        <button className="account-button" type="submit" onClick={register}>
           Register
         </button>
       </form>
       {failed ? <p>User Name already exist</p> : ""}
-      <p>
+      <p className="account-helper">
         Already have an account? <Link to="/login">Log In</Link>
       </p>
     </div>

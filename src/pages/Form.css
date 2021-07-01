@@ -1,0 +1,66 @@
+.account-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+}
+
+.account-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 4.5rem;
+}
+
+.error {
+  color: #e63946;
+  font-family: "Open Sans", sans-serif;
+}
+
+.account-input {
+  background-color: var(--input-background);
+  padding: 10px;
+  border: 2px solid var(--button-text);
+  border-radius: 10px;
+  outline: none;
+  margin-bottom: 2rem;
+}
+
+.account-button {
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  color: var(--button-text);
+  background-color: var(--button-background);
+  border-radius: 50px;
+  border: none;
+  transition: var(--transition);
+}
+
+.account-button:hover {
+  background-color: var(--button-hover);
+  transform: perspective(1px) translateZ(0px);
+}
+
+.account-helper {
+  color: var(--text-color);
+}
+
+.account-helper a {
+  text-decoration: none;
+  color: var(--button-text);
+  font-weight: 600;
+}
+
+@media (min-width: 1200px) {
+  .account-form {
+    width: 20%;
+  }
+
+  .account-title {
+    font-size: 3vw;
+  }
+}

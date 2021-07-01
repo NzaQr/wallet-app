@@ -34,6 +34,20 @@ body {
   transition: var(--transition);
 }
 
+.total-title {
+  font-size: 2.5rem;
+  margin-bottom: 0;
+}
+
+.total {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
+input {
+  color: var(--text-color);
+}
+
 .dark-mode-container {
   display: flex;
   justify-content: flex-end;
@@ -263,11 +277,26 @@ div p {
   .select-crypto {
     position: relative;
   }
+
+  .total-title {
+    font-size: 5vw;
+  }
+
+  .total {
+    font-size: 6vw;
+  }
 }
 
 @media (min-width: 1200px) {
   .dashboard-container,
   .modal {
     width: 25vw;
+  }
+  .total-title {
+    font-size: 2vw;
+  }
+
+  .total {
+    font-size: 3vw;
   }
 }

@@ -1,46 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import Modal from "react-modal";
 import { MdClose } from "react-icons/md";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import ethereum from "../assets/ethereum.svg";
 import dai from "../assets/dai.png";
-import { useMediaQuery } from "react-responsive";
-
-/* import { TokenContext } from "../context/TokenContext"; */
-const DARK_CLASS = "dark";
 
 const Dashboard = () => {
   const [wallets, setWallets] = useState([]);
   const [balance, setBalance] = useState([]);
   const [total, setTotal] = useState();
+  const [sum, setSum] = useState();
+
   const [selectedCrypto, setSelectedCrypto] = useState("ETH");
-  const [walletCoin, setWalletCoin] = useState();
+  const [walletCoin, setWalletCoin] = useState("");
   const [modal, setModal] = useState(false);
+  const [showWallets, setShowWallets] = useState(false);
 
-  const systemPrefersDark = useMediaQuery(
-    {
-      query: "(prefers-color-scheme: dark)",
-    },
-    undefined,
-    (prefersDark) => {
-      setIsDark(prefersDark);
-    }
-  );
-
-  const [isDark, setIsDark] = useState(systemPrefersDark);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add(DARK_CLASS);
-    } else {
-      document.documentElement.classList.remove(DARK_CLASS);
-    }
-  }, [isDark]);
-
-  /* const { token } = useContext(TokenContext); */
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZGNhM2Q0ZmMwM2NhN2FjZmM4NzE2YyIsImlhdCI6MTYyNTEwMzU2NywiZXhwIjoxNjI1MTg5OTY3fQ.dU-Kd0FSHFZPCl1aqqUQZm6_HR2PPQfRxYnoZUCBvcM";
+  const token = localStorage.getItem("token");
   const axios = require("axios");
 
   const getWallet = () => {
@@ -66,9 +43,21 @@ const Dashboard = () => {
         },
       })
       .then((res) => {
-        setTotal(res.data.send_user.total.total_2);
-        console.log(res);
+        const total = res.data.send_user.total.total_2;
+        /*         const trimedTotal = total.substring(0, 5);
+         */ const fixedTotal = total
+          .toString()
+          .match(/^-?\d+(?:\.\d{0,3})?/)[0];
+        setTotal(fixedTotal);
         setBalance(res.data.send_user);
+        /*    setSum(
+          balance && balance.total && balance.total.data
+            ? balance.total.data
+                .map((amount) => amount.balance)
+                .reduce((a, b) => a + b)
+            : null
+        );
+        console.log(sum); */
       })
       .catch((err) => {
         console.error(err);
@@ -111,17 +100,6 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="dark-mode-container">
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={isDark}
-            onClick={(e) => setIsDark(e.target.checked)}
-          />
-          <span className="slider round"></span>
-        </label>
-      </div>
-
       <div className="dashboard-container">
         <form className="dashboard-form" onSubmit={createWallet}>
           <div className="select-container">
@@ -192,37 +170,48 @@ const Dashboard = () => {
             Add Wallet
           </button>
         </form>
-        <h1>Total</h1>
-        <p className="text">{total}</p>
-
-        <h1>Your wallets</h1>
-        <div className="wallet-container">
-          <div>
-            {wallets.map((wallet) => (
-              <>
-                <div className="wallet-name">
-                  <img
-                    className="crypto-img"
-                    src={wallet.wallet_name === "ETH" ? ethereum : dai}
-                    alt={`${wallet.wallet_name} logo`}
-                  />
-                  <p className="text" key={wallet._id}>
-                    {wallet.wallet_name}
-                  </p>
-                </div>
-              </>
-            ))}
-          </div>
-          <div>
-            {balance && balance.total && balance.total.data
-              ? balance.total.data.map((amount, amounIdx) => (
-                  <div className="text" key={amounIdx}>
-                    {amount.balance}
-                  </div>
-                ))
-              : null}
-          </div>
+        <h1 className="total-title">Total</h1>
+        <p className="text total">{total}</p>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <button
+            className="dashboard-button"
+            onClick={() => setShowWallets(!showWallets)}
+          >
+            Your wallets
+          </button>
+          {/* <p> {sum}</p> */}
         </div>
+        {showWallets ? (
+          <div className="wallet-container">
+            <div>
+              {wallets.map((wallet, walletIdx) => (
+                <>
+                  <div className="wallet-name" key={walletIdx}>
+                    <img
+                      className="crypto-img"
+                      src={wallet.wallet_name === "ETH" ? ethereum : dai}
+                      alt={`${wallet.wallet_name} logo`}
+                    />
+                    <p className="text" key={wallet._id}>
+                      {wallet.wallet_name}
+                    </p>
+                  </div>
+                </>
+              ))}
+            </div>
+            <div>
+              {balance && balance.total && balance.total.data
+                ? balance.total.data.map((amount, amounIdx) => (
+                    <div className="text" key={amounIdx}>
+                      {amount.balance}
+                    </div>
+                  ))
+                : null}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

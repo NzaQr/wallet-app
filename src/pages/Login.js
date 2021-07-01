@@ -1,14 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { TokenContext } from "../context/TokenContext";
-
+import "./Form.css";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [failed, setFailed] = useState(false);
   const axios = require("axios");
   const history = useHistory();
-  const { setToken } = useContext(TokenContext);
 
   const login = async (e) => {
     e.preventDefault();
@@ -19,7 +17,8 @@ const Login = () => {
       })
       .then((res) => {
         const data = res.data.token;
-        setToken(data);
+
+        localStorage.setItem("token", data);
         history.push("/dashboard");
       })
       .catch((err) => {
@@ -30,26 +29,29 @@ const Login = () => {
 
   return (
     <div>
-      <form onSubmit={login}>
+      <form className="account-form" onSubmit={login}>
+        <h1 className="account-title">Login</h1>
         <input
+          className="account-input"
           type="text"
           placeholder="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          type="text"
+          className="account-input"
+          type="password"
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" onClick={login}>
+        <button className="account-button" type="submit" onClick={login}>
           Login
         </button>
       </form>
-      {failed ? <p>User Name already exists</p> : ""}
-      <p>
-        <Link to="/">Register</Link>
+      {failed ? <p>Something went wrong</p> : ""}
+      <p className="account-helper">
+        Need an account? <Link to="/">Register</Link>
       </p>
     </div>
   );
