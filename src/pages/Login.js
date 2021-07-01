@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { TokenContext } from "../context/TokenContext";
 
 const Login = () => {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [failed, setFailed] = useState(false);
-
   const axios = require("axios");
   const history = useHistory();
+  const { setToken } = useContext(TokenContext);
 
   const login = async (e) => {
     e.preventDefault();
@@ -17,8 +18,8 @@ const Login = () => {
         password: password,
       })
       .then((res) => {
-        console.log(res.data.token);
-
+        const data = res.data.token;
+        setToken(data);
         history.push("/dashboard");
       })
       .catch((err) => {
@@ -46,7 +47,7 @@ const Login = () => {
           Login
         </button>
       </form>
-      {failed ? <p>User Name already exist</p> : ""}
+      {failed ? <p>User Name already exists</p> : ""}
       <p>
         <Link to="/">Register</Link>
       </p>

@@ -1,9 +1,94 @@
+html {
+  --background: #f7f1f6;
+  --dashboard-background: #ffffff;
+  --input-background: #f7f8fa;
+  --button-text: rgb(213, 0, 102);
+  --button-background: rgb(253, 234, 241);
+  --button-hover: #fcdce8;
+  --text-color: hsl(200, 15%, 8%);
+  --transition: all 0.1s ease;
+}
+
+html.dark {
+  --background: #2b242e;
+  --dashboard-background: rgb(25, 27, 31);
+  --input-background: rgb(33, 36, 41);
+  --button-text: rgb(67, 139, 240);
+  --button-background: rgba(21, 61, 111, 0.44);
+  --button-hover: #16263c;
+  --text-color: hsl(0, 0%, 100%);
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
   margin: 40px 0;
   text-align: center;
-  background-color: #f7f1f6;
+  background: var(--background);
+  transition: var(--transition);
+}
+
+.text,
+::placeholder {
+  color: var(--text-color);
+  transition: var(--transition);
+}
+
+.dark-mode-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 1.5rem 2rem 0;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--text-color);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 24px;
+  width: 24px;
+  left: 5px;
+  bottom: 3px;
+  background: var(--background);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 .select-crypto {
@@ -14,7 +99,7 @@ body {
 
 .select-crypto button {
   background-color: transparent;
-  padding: 0.5rem 0 0.5rem 1rem;
+  padding: 0.5rem 0 0.5rem 0.5rem;
   font-size: 20px;
   border-radius: 10px;
   border: none;
@@ -26,12 +111,13 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ffffff;
+  background-color: var(--dashboard-background);
   width: 70%;
   height: 70%;
   font-size: 20px;
   padding: 1rem 1.5rem;
   border-radius: 20px;
+  transition: var(--transition);
 }
 
 .modal-header {
@@ -51,14 +137,15 @@ body {
   font-family: "Open Sans", sans-serif;
   margin-bottom: 3rem;
   padding: 0.5rem;
-  background-color: #ffffff;
+  background-color: var(--dashboard-background);
   border-radius: 15px;
   border: 1px solid rgba(195, 197, 203, 0.5);
   cursor: pointer;
+  transition: var(--transition);
 }
 
 .modal-cryptos input:hover {
-  background-color: #f7f8fa;
+  background-color: var(--input-background);
 }
 
 .icon {
@@ -67,11 +154,14 @@ body {
 
 .dashboard-container {
   text-align: left;
-  background-color: #ffffff;
+  background-color: var(--dashboard-background);
+  box-shadow: rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px,
+    rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px;
   max-width: 70%;
   margin: 0 auto;
-  padding: 2rem 0.5rem;
+  padding: 2rem 2rem;
   border-radius: 25px;
+  transition: var(--transition);
 }
 
 .wallet-container {
@@ -79,6 +169,15 @@ body {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+}
+
+.wallet-name {
+  display: flex;
+  align-items: center;
+}
+
+.crypto-img {
+  width: 20px;
 }
 
 .arrow {
@@ -93,13 +192,14 @@ body {
 }
 
 .dashboard-input {
-  background-color: #f7f8fa;
-  text-align: right;
+  background-color: var(--input-background);
+  text-align: left;
   margin: 1rem 0;
   padding: 1rem;
   font-size: 20px;
   border-radius: 15px;
   border: 1px solid rgba(195, 197, 203, 0.5);
+  transition: var(--transition);
 }
 
 .dashboard-input:hover {
@@ -107,20 +207,29 @@ body {
 }
 
 .dashboard-button {
-  color: rgb(213, 0, 102);
-  background-color: rgb(253, 234, 241);
+  color: var(--button-text);
+  background-color: var(--button-background);
   margin: 1rem 0;
   padding: 1rem;
   font-size: 20px;
   border-radius: 50px;
   border: none;
   cursor: pointer;
-  transition: all 0.1s ease;
+  transition: var(--transition);
 }
 
 .dashboard-button:hover {
-  background-color: #fcdce8;
+  background-color: var(--button-hover);
   transform: perspective(1px) translateZ(0px);
+}
+
+h1 {
+  text-align: center;
+  color: var(--button-text);
+}
+
+p {
+  text-align: center;
 }
 
 div p {
@@ -128,6 +237,10 @@ div p {
 }
 
 @media (min-width: 800px) {
+  .dark-mode-container {
+    margin: 0 5rem 3rem 0;
+  }
+
   .dashboard-container,
   .modal {
     width: 50vw;
@@ -135,6 +248,7 @@ div p {
 
   .dashboard-input {
     width: 70%;
+    text-align: right;
   }
 
   .dashboard-button {

@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { TokenContextProvider } from "./context/TokenContext";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <TokenContextProvider>
     <App />
-  </React.StrictMode>,
+  </TokenContextProvider>,
   document.getElementById("root")
 );
