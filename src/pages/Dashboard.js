@@ -10,7 +10,6 @@ const Dashboard = () => {
   const [wallets, setWallets] = useState([]);
   const [balance, setBalance] = useState([]);
   const [total, setTotal] = useState();
-  const [sum, setSum] = useState();
 
   const [selectedCrypto, setSelectedCrypto] = useState("ETH");
   const [walletCoin, setWalletCoin] = useState("");
@@ -44,20 +43,9 @@ const Dashboard = () => {
       })
       .then((res) => {
         const total = res.data.send_user.total.total_2;
-        /*         const trimedTotal = total.substring(0, 5);
-         */ const fixedTotal = total
-          .toString()
-          .match(/^-?\d+(?:\.\d{0,3})?/)[0];
+        const fixedTotal = total.toString().match(/^-?\d+(?:\.\d{0,3})?/)[0];
         setTotal(fixedTotal);
         setBalance(res.data.send_user);
-        /*    setSum(
-          balance && balance.total && balance.total.data
-            ? balance.total.data
-                .map((amount) => amount.balance)
-                .reduce((a, b) => a + b)
-            : null
-        );
-        console.log(sum); */
       })
       .catch((err) => {
         console.error(err);
@@ -179,7 +167,6 @@ const Dashboard = () => {
           >
             Your wallets
           </button>
-          {/* <p> {sum}</p> */}
         </div>
         {showWallets ? (
           <div className="wallet-container">
